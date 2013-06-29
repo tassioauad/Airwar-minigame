@@ -1,27 +1,24 @@
 var screen = document.getElementById("screen");
 var context = screen.getContext("2d");
+var player = new Player();
 
+//Key actions
 window.addEventListener("keydown", keyDown);
 window.addEventListener("keyup", keyUp);
-
 function keyUp(e) {
-    if (e.keyCode === 38) {
-        player.curveDown = false;
-    } else if (e.keyCode === 40) {
-        player.curveUp = false;
-    } else if (e.keyCode === 32) {
+    if (e.keyCode === 32) {
         player.fire(this.context);
     }
 }
-
 function keyDown(e) {
     if (e.keyCode === 38) {
-        player.curveDown = true;
+        player.increaseAngle();
     } else if (e.keyCode === 40) {
-        player.curveUp = true;
+        player.decreaseAngle();
     }
 }
 
+//Clear the draws
 function clearScreen() {
     context.beginPath();
     context.fillStyle = "white";
@@ -30,12 +27,12 @@ function clearScreen() {
     context.closePath();
 }
 
+//The game's life cicle
 function gameLifeCicle() {
     clearScreen();
     player.move();
     player.draw(context, screen);
 
 }
-
 window.setInterval(gameLifeCicle, 5);
 
