@@ -1,4 +1,4 @@
-var bullet = {
+var bomb = {
     width: 10,
     height: 5,
     coordinateX: 0,
@@ -24,18 +24,18 @@ var player = {
     coordinateX: 200,
     coordinateY: 200,
     angle: 0,
-    velocity: 1,
+    velocity: 0.1,
     curveDown: false,
     curveUp: false,
-    bullets: [],
-    bulletsFired: 0,
+    bomb: [],
+    bombsFired: 0,
     fire: function(context) {
-        this.bulletsFired++;
-        this.bullets[this.bulletsFired] = new bullet;
-        this.bullets[this.bulletsFired].coordinateX = this.coordinateX;
-        this.bullets[this.bulletsFired].coordinateY = this.coordinateY;
-        this.bullets[this.bulletsFired].velocityX = this.velocityX + 0.1;
-        this.bullets[this.bulletsFired].velocityY = this.velocityY;
+        this.bomb[this.bombsFired] = new bomb;
+        this.bomb[this.bombsFired].coordinateX = this.coordinateX;
+        this.bomb[this.bombsFired].coordinateY = this.coordinateY;
+        this.bomb[this.bombsFired].velocityX = this.velocityX;
+        this.bomb[this.bombsFired].velocityY = this.velocityY + 0.5;
+        this.bombsFired++;
     },
     draw: function(context, screen) {
         if (this.curveDown) {
@@ -53,8 +53,8 @@ var player = {
         context.closePath();
         context.restore();
 
-        for (i = 0; i < this.bulletsFired; i++) {
-            this.bullets[i].draw(context);
+        for (i = 0; i < this.bombsFired; i++) {
+            this.bomb[i].draw(context);
         }
     },
     move: function() {
@@ -87,7 +87,7 @@ var player = {
                 auxAngleY = 360 - correctedAngle;
             }
         }
-        
+
         //The velocityY will be positive or negative?
         var factorY = 1;
         if (correctedAngle > 180) {
@@ -95,7 +95,7 @@ var player = {
         }
         //Calculating the velocityY
         velocityY = ((this.velocity * auxAngleY) / 90) * factorY;
-        
+
         //The velocityX will be positive or negative?
         var factorX = -1;
         if (correctedAngle <= 90 || correctedAngle >= 270) {
@@ -103,7 +103,7 @@ var player = {
         }
         //Calculating the velocityX
         velocityX = ((this.velocity * auxAngleX) / 90) * factorX;
-        
+
         this.coordinateX += velocityX;
         this.coordinateY += velocityY;
     }
