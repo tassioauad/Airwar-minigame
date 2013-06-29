@@ -5,17 +5,8 @@ function Player(){
     var coordinateY = 200;
     var angle = 0;
     var velocity = 0.1;
-    var bomb = [];
-    var bombsFired = 0;
-    
-    this.fire = function(context) {
-        bomb[bombsFired] = new Bomb();
-        bomb[bombsFired].setCoordinateX(coordinateX);
-        bomb[bombsFired].setCoordinateY(coordinateY);
-        bomb[bombsFired].setVelocityX(velocity);
-        bomb[bombsFired].setVelocityY(velocity + 0.5);
-        bombsFired++;
-    };
+    var increaseAngle = false;
+    var decreaseAngle = false;
     
     this.draw = function(context, screen) {
         context.save();
@@ -27,14 +18,14 @@ function Player(){
         context.fillRect(width / -2, height / -2, width, height);
         context.closePath();
         context.restore();
-
-        for (i = 0; i < bombsFired; i++) {
-            bomb[i].draw(context);
-            bomb[i].move();
-        }
     };
     
     this.move = function() {
+        if(increaseAngle === true) {
+            angle++;
+        } else if(decreaseAngle === true) {
+            angle--;
+        }
         //Getting how many turns the object has been done.
         var turn = angle / 360;
         //Getting the decimal portion of the number of turns and mutiplying by 360.
@@ -71,7 +62,7 @@ function Player(){
             factorY = -1;
         }
         //Calculating the velocityY
-        velocityY = ((velocity * auxAngleY) / 90) * factorY;
+        var velocityY = ((velocity * auxAngleY) / 90) * factorY;
 
         //The velocityX will be positive or negative?
         var factorX = -1;
@@ -79,18 +70,18 @@ function Player(){
             factorX = 1;
         }
         //Calculating the velocityX
-        velocityX = ((velocity * auxAngleX) / 90) * factorX;
+        var velocityX = ((velocity * auxAngleX) / 90) * factorX;
 
         coordinateX += velocityX;
         coordinateY += velocityY;
     };
     
-    this.increaseAngle = function() {
-        angle++;
+    this.increaseAngle = function(bool) {
+        increaseAngle = bool;
     };
     
-    this.decreaseAngle = function() {
-        angle--;
+    this.decreaseAngle = function(bool) {
+        decreaseAngle = bool;
     };
 };
 
