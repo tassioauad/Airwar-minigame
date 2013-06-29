@@ -95,10 +95,6 @@ var player = {
         }
         //Calculating the velocityY
         velocityY = ((this.velocity * auxAngleY) / 90) * factorY;
-        /*var velocityY = 0;
-        if (correctedAngle !== 0 && correctedAngle !== 180) {
-            velocityY = ((this.velocity * auxAngleY) / 90) * factorY;
-        }*/
         
         //The velocityX will be positive or negative?
         var factorX = -1;
@@ -107,14 +103,7 @@ var player = {
         }
         //Calculating the velocityX
         velocityX = ((this.velocity * auxAngleX) / 90) * factorX;
-        /*var velocityX = 0;
-        if (correctedAngle !== 90 && correctedAngle !== 270) {
-            velocityX = ((this.velocity * auxAngleX) / 90) * factorX;
-        }*/
         
-        //console.log(this.velocity + ".." + auxAngle + ".." + factorY + ".." + factorX);
-        
-        console.log(correctedAngle + ".." + velocityX + ".." + velocityY);
         this.coordinateX += velocityX;
         this.coordinateY += velocityY;
     }
