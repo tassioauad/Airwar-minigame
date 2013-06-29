@@ -1,0 +1,16 @@
+/* 
+    Document   : game.css
+    Created on : Jun 8, 2013, 3:08:23 AM
+    Author     : tassio auad
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+html {
+    background: black;
+}
+
+#screen {
+    background: white;
+}
+
