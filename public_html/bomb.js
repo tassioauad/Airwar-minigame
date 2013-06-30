@@ -1,6 +1,22 @@
+/*-
+This is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this software.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 function Bomb() {
-    var width = 10;
-    var height = 5;
+    var image = new Image();
+    var width = 15;
+    var height = 35;
     var coordinateX = 0;
     var coordinateY = 0;
     var velocityX = 0;
@@ -20,10 +36,7 @@ function Bomb() {
         context.translate(coordinateX, coordinateY);
         //Transforming the angle in rad
         context.rotate(angle * (Math.PI / 180));
-        context.beginPath();
-        context.fillStyle = "black";
-        context.fillRect(width/-2, (height-50)/-2, width, height);
-        context.closePath();
+        context.drawImage(image, 10, 4, 47, 110, width/-2, (height-40)/-2, width, height);
         context.restore();
     };
     
@@ -95,5 +108,13 @@ function Bomb() {
     
     this.setGravity = function(g) {
         gravity = g;
-    }
+    };
+    
+    this.setImage = function(i) {
+         image = i;
+    };
+ 
+    this.getImage = function() {
+        return image;
+    };
 }

@@ -1,6 +1,22 @@
+/*-
+This is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this software.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 function Player() {
-    var width = 70;
-    var height = 40;
+    var image = new Image();
+    var width = 100;
+    var height = 57;
     var coordinateX = 200;
     var coordinateY = 200;
     var angle = 0;
@@ -24,17 +40,12 @@ function Player() {
         } else if(coordinateY < 0 - height) {
             coordinateY = screen.height - coordinateY;
         }
-        
-        
-        
+      
         context.save();
         context.translate(coordinateX, coordinateY);
-        //Transforming the angle in rad
+        //This mathematical expression, angle * (Math.PI / 180), is converting degree to radian
         context.rotate(angle * (Math.PI / 180));
-        context.beginPath();
-        context.fillStyle = "black";
-        context.fillRect(width / -2, height / -2, width, height);
-        context.closePath();
+        context.drawImage(image, width / -2, height / -2, width, height);
         context.restore();
     };
 
@@ -166,6 +177,14 @@ function Player() {
     
     this.getAngle = function(){
         return angle;
+    };
+    
+    this.setImage = function(i) {
+         image = i;
+    };
+ 
+    this.getImage = function() {
+        return image;
     };
 }
 ;

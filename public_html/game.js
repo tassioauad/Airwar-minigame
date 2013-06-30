@@ -1,6 +1,31 @@
+/*-
+This is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This software is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this software.  If not, see <http://www.gnu.org/licenses/>.
+*/
+
 var screen = document.getElementById("screen");
 var context = screen.getContext("2d");
+
+//Images' path
+var playerImagePath = "images/plane5.png";
+var bombImagePath = "images/bomb2.png";
+var backgroundImagePath = "images/sky01.png";
+
+//Player
 var player = new Player();
+player.getImage().src = playerImagePath;
+
+//Bomb
 var bombs = [];
 var bombsFired = 0;
 
@@ -24,7 +49,7 @@ function keyDown(e) {
     }
 }
 
-//Player firing a bomb
+//Player is firing a bomb
 function playerFire() {
     bombs[bombsFired] = new Bomb();
     bombs[bombsFired].setCoordinateX(player.getCoordinateX());
@@ -32,16 +57,15 @@ function playerFire() {
     bombs[bombsFired].setVelocityY(player.getVelocityY());
     bombs[bombsFired].setVelocityX(player.getVelocityX());
     bombs[bombsFired].setAngle(player.getAngle());
+    bombs[bombsFired].getImage().src = bombImagePath;
     bombsFired++;
 }
 
 //Clear the draws
 function clearScreen() {
-    context.beginPath();
-    context.fillStyle = "white";
-    context.fillRect(0, 0, screen.width, screen.height);
-    context.strokeRect(0, 0, screen.width, screen.height);
-    context.closePath();
+    var backgroundImage = new Image();
+    backgroundImage.src = backgroundImagePath;
+    context.drawImage(backgroundImage, 0, 0, screen.width, screen.height);
 }
 
 //The game's life cicle
