@@ -5,17 +5,23 @@ function Bomb() {
     var coordinateY = 0;
     var velocityX = 0;
     var velocityY = 0;
+    var gravity = 0.01;
     var angle = 0;
     
-    this.draw = function(context) {
+    this.draw = function(context, screen) {
+        context.save();
+        context.translate(coordinateX / 2, coordinateY / 2);
+        //Transforming the angle in rad
+        context.rotate(angle * (Math.PI / 180));
         context.beginPath();
         context.fillStyle = "black";
-        context.fillRect(coordinateX, coordinateY, width, height);
-        context.strokeRect(coordinateX, coordinateY, width, height);
+        context.fillRect(width/-2, (height-50)/-2, width, height);
         context.closePath();
+        context.restore();
     };
     
     this.move = function() {
+        velocityY += gravity;
         coordinateX += velocityX;
         coordinateY += velocityY;
     };
@@ -64,11 +70,23 @@ function Bomb() {
         return velocityY;
     };
     
-    this.setVelocity = function(vY) {
+    this.setVelocityY = function(vY) {
         velocityY = vY;
     };
     
-    this.angle = function(a){
+    this.setAngle = function(a){
         angle = a;
     };
+    
+    this.getAngle = function(){
+        return angle;
+    };
+    
+    this.getGravity = function() {
+        return gravity;
+    };
+    
+    this.setGravity = function(g) {
+        gravity = g;
+    }
 }

@@ -142,12 +142,16 @@ function Player() {
         return velocityY;
     };
 
-    this.setVelocity = function(vY) {
+    this.setVelocityY = function(vY) {
         velocityY = vY;
     };
 
-    this.angle = function(a) {
+    this.setAngle = function(a){
         angle = a;
+    };
+    
+    this.getAngle = function(){
+        return angle;
     };
 }
 ;

@@ -29,8 +29,9 @@ function playerFire() {
     bombs[bombsFired] = new Bomb();
     bombs[bombsFired].setCoordinateX(player.getCoordinateX());
     bombs[bombsFired].setCoordinateY(player.getCoordinateY());
-    bombs[bombsFired].setVelocityX(player.getVelocityY());
+    bombs[bombsFired].setVelocityY(player.getVelocityY());
     bombs[bombsFired].setVelocityX(player.getVelocityX());
+    bombs[bombsFired].setAngle(player.getAngle());
     bombsFired++;
 }
 
