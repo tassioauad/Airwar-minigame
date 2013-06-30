@@ -24,51 +24,51 @@ function Bomb() {
         return width;
     };
     
-    this.setWidth = function(width){
-        this.width = width;
+    this.setWidth = function(w){
+        width = w;
     };
     
     this.getHeight = function(){
-        return this.height;
+        return height;
     };
     
-    this.setHeight = function(height){
-        this.height = height;
+    this.setHeight = function(h){
+        height = h;
     };
     
     this.getCoordinateX = function() {
-        return this.coodinateX;
+        return coordinateX;
     };
     
-    this.setCoordinateX = function(coordinateX) {
-        this.coodinateX = coordinateX;
+    this.setCoordinateX = function(cX) {
+        coordinateX = cX;
     };
     
     this.getCoordinateY = function() {
-        return this.coodinateY;
+        return coordinateY;
     };
     
-    this.setCoordinateY = function(coordinateY) {
-        this.coodinateY = coordinateY;
+    this.setCoordinateY = function(cY) {
+        coordinateY = cY;
     };
     
     this.getVelocityX = function() {
-        return this.velocityX;
+        return velocityX;
     };
     
-    this.setVelocityX = function(velocityX) {
-        this.velocityX = velocityX;
+    this.setVelocityX = function(vX) {
+        velocityX = vX;
     };
     
     this.getVelocityY = function() {
-        return this.velocityY;
+        return velocityY;
     };
     
-    this.setVelocityY = function(velocityY) {
-        this.velocityY = velocityY;
+    this.setVelocity = function(vY) {
+        velocityY = vY;
     };
     
-    this.angle = function(angle){
-        this.angle = angle;
+    this.angle = function(a){
+        angle = a;
     };
 }

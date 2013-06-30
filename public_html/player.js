@@ -1,13 +1,17 @@
-function Player(){
-    var width =  70;
+function Player() {
+    var width = 70;
     var height = 40;
     var coordinateX = 200;
     var coordinateY = 200;
     var angle = 0;
-    var velocity = 0.1;
+    var velocity = 0.5;
+    var velocityX = 0;
+    var velocityY = 0;
     var increaseAngle = false;
     var decreaseAngle = false;
-    
+    var bombs = [];
+    var bombsFired = 0;
+
     this.draw = function(context, screen) {
         context.save();
         context.translate(coordinateX / 2, coordinateY / 2);
@@ -19,11 +23,11 @@ function Player(){
         context.closePath();
         context.restore();
     };
-    
+
     this.move = function() {
-        if(increaseAngle === true) {
+        if (increaseAngle === true) {
             angle++;
-        } else if(decreaseAngle === true) {
+        } else if (decreaseAngle === true) {
             angle--;
         }
         //Getting how many turns the object has been done.
@@ -62,7 +66,7 @@ function Player(){
             factorY = -1;
         }
         //Calculating the velocityY
-        var velocityY = ((velocity * auxAngleY) / 90) * factorY;
+        var velY = ((velocity * auxAngleY) / 90) * factorY;
 
         //The velocityX will be positive or negative?
         var factorX = -1;
@@ -70,18 +74,81 @@ function Player(){
             factorX = 1;
         }
         //Calculating the velocityX
-        var velocityX = ((velocity * auxAngleX) / 90) * factorX;
+        var velX = ((velocity * auxAngleX) / 90) * factorX;
 
+        velocityX = velX;
+        velocityY = velY;
         coordinateX += velocityX;
         coordinateY += velocityY;
     };
-    
+
     this.increaseAngle = function(bool) {
         increaseAngle = bool;
     };
-    
+
     this.decreaseAngle = function(bool) {
         decreaseAngle = bool;
     };
-};
+
+    this.getWidth = function() {
+        return width;
+    };
+
+    this.setWidth = function(w) {
+        width = w;
+    };
+
+    this.getHeight = function() {
+        return height;
+    };
+
+    this.setHeight = function(h) {
+        height = h;
+    };
+
+    this.getCoordinateX = function() {
+        return coordinateX;
+    };
+
+    this.setCoordinateX = function(cX) {
+        coordinateX = cX;
+    };
+
+    this.getCoordinateY = function() {
+        return coordinateY;
+    };
+
+    this.setCoordinateY = function(cY) {
+        coordinateY = cY;
+    };
+
+    this.getVelocity = function() {
+        return velocity;
+    };
+
+    this.setVelocity = function(v) {
+        velocity = v;
+    };
+
+    this.getVelocityX = function() {
+        return velocityX;
+    };
+
+    this.setVelocityX = function(vX) {
+        velocityX = vX;
+    };
+
+    this.getVelocityY = function() {
+        return velocityY;
+    };
+
+    this.setVelocity = function(vY) {
+        velocityY = vY;
+    };
+
+    this.angle = function(a) {
+        angle = a;
+    };
+}
+;
 

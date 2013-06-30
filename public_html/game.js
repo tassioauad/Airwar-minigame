@@ -10,13 +10,10 @@ window.addEventListener("keyup", keyUp);
 function keyUp(e) {
     if (e.keyCode === 38) {
         player.decreaseAngle(false);
-        console.log("keyup descrease");
     } else if (e.keyCode === 40) {
         player.increaseAngle(false);
-        console.log("keyup increase");
-    }else if (e.keyCode === 32) {
-        bombs[bombsFired] = new Bomb();
-        bombsFired++;
+    } else if (e.keyCode === 32) {
+        playerFire();
     }
 }
 function keyDown(e) {
@@ -25,6 +22,16 @@ function keyDown(e) {
     } else if (e.keyCode === 40) {
         player.increaseAngle(true);
     }
+}
+
+//Player firing a bomb
+function playerFire() {
+    bombs[bombsFired] = new Bomb();
+    bombs[bombsFired].setCoordinateX(player.getCoordinateX());
+    bombs[bombsFired].setCoordinateY(player.getCoordinateY());
+    bombs[bombsFired].setVelocityX(player.getVelocityY());
+    bombs[bombsFired].setVelocityX(player.getVelocityX());
+    bombsFired++;
 }
 
 //Clear the draws
@@ -39,13 +46,17 @@ function clearScreen() {
 //The game's life cicle
 function gameLifeCicle() {
     clearScreen();
+
+    //Drawing and moving the player
     player.move();
     player.draw(context, screen);
     
+    //Drawing and moving the bombs
     for (i = 0; i < bombsFired; i++) {
         bombs[i].move();
         bombs[i].draw(context);
     }
+
 }
 window.setInterval(gameLifeCicle, 5);
 
