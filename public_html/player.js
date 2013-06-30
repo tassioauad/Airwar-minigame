@@ -4,7 +4,7 @@ function Player() {
     var coordinateX = 200;
     var coordinateY = 200;
     var angle = 0;
-    var velocity = 0.5;
+    var velocity = 0.7;
     var velocityX = 0;
     var velocityY = 0;
     var increaseAngle = false;
@@ -13,8 +13,22 @@ function Player() {
     var bombsFired = 0;
 
     this.draw = function(context, screen) {
+        if(coordinateX - width > screen.width) {
+            coordinateX = screen.width - coordinateX;
+        }  else if(coordinateX < 0 - width) {
+            coordinateX = screen.width - coordinateX;
+        } 
+       
+        if(coordinateY - height > screen.height) {
+            coordinateY = screen.height - coordinateY;
+        } else if(coordinateY < 0 - height) {
+            coordinateY = screen.height - coordinateY;
+        }
+        
+        
+        
         context.save();
-        context.translate(coordinateX / 2, coordinateY / 2);
+        context.translate(coordinateX, coordinateY);
         //Transforming the angle in rad
         context.rotate(angle * (Math.PI / 180));
         context.beginPath();

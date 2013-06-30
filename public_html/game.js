@@ -55,7 +55,7 @@ function gameLifeCicle() {
     //Drawing and moving the bombs
     for (i = 0; i < bombsFired; i++) {
         bombs[i].move();
-        bombs[i].draw(context);
+        bombs[i].draw(context, screen);
     }
 
 }

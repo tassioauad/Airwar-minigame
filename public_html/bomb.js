@@ -9,8 +9,15 @@ function Bomb() {
     var angle = 0;
     
     this.draw = function(context, screen) {
+        if(coordinateX > screen.width || coordinateY > screen.height) {
+            coordinateX = -screen.width;
+            coordinateY = -screen.height;
+            velocityX = 0;
+            velocityY = 0;
+            gravity = 0;
+        }
         context.save();
-        context.translate(coordinateX / 2, coordinateY / 2);
+        context.translate(coordinateX, coordinateY);
         //Transforming the angle in rad
         context.rotate(angle * (Math.PI / 180));
         context.beginPath();
