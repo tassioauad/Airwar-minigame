@@ -19,6 +19,7 @@ var context = screen.getContext("2d");
 //Images' path
 var playerImagePath = "images/plane5.png";
 var bombImagePath = "images/bomb2.png";
+var warshipImagePath = "images/ship5.png";
 var backgroundImagePath = "images/sky01.png";
 
 //Player
@@ -28,6 +29,10 @@ player.getImage().src = playerImagePath;
 //Bomb
 var bombs = [];
 var bombsFired = 0;
+
+//Bomb
+var warships = [];
+var warshipsAmount = 0;
 
 //Key actions
 window.addEventListener("keydown", keyDown);
@@ -47,6 +52,23 @@ function keyDown(e) {
     } else if (e.keyCode === 40) {
         player.increaseAngle(true);
     }
+}
+
+function createWarship() {
+    warships[warshipsAmount] = new Warship();
+    warships[warshipsAmount].getImage().src = warshipImagePath;
+    warships[warshipsAmount].setCoordinateY(screen.height - warships[warshipsAmount].getHeight());
+    
+    //if whichSide = 0, the warship will be created on the right side, if = 1, on the left side.
+    var whichSide = Math.floor((Math.random()*2));
+    if(whichSide === 0) {
+        warships[warshipsAmount].setCoordinateX(screen.width + warships[warshipsAmount].getWidth());
+        warships[warshipsAmount].setVelocityX(-Math.random());
+    } else {
+        warships[warshipsAmount].setCoordinateX(0 - warships[warshipsAmount].getWidth());
+        warships[warshipsAmount].setVelocityX(Math.random());
+    }
+    warshipsAmount++;
 }
 
 //Player is firing a bomb
@@ -80,6 +102,18 @@ function gameLifeCicle() {
     for (i = 0; i < bombsFired; i++) {
         bombs[i].move();
         bombs[i].draw(context, screen);
+    }
+    
+    //Creating warships
+    var createOrNot = Math.floor((Math.random()*10000))
+    if(createOrNot === 0) {
+        createWarship();
+    }
+    
+    //Drawing and moving the warships
+    for (i = 0; i < warshipsAmount; i++) {
+        warships[i].move(screen);
+        warships[i].draw(context);
     }
 
 }

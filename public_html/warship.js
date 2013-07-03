@@ -13,38 +13,25 @@ You should have received a copy of the GNU General Public License
 along with this software.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function Bomb() {
+function Warship() {
     var image = new Image();
-    var width = 15;
-    var height = 35;
+    var width = 236;
+    var height = 94;
     var coordinateX = 0;
     var coordinateY = 0;
     var velocityX = 0;
-    var velocityY = 0;
-    var gravity = 0.01;
-    var angle = 0;
+    var shotAngle = 0;
     
-    this.draw = function(context, screen) {
-        //TODO: Move these tests to move()
-        if(coordinateX > screen.width || coordinateY > screen.height) {
-            coordinateX = -screen.width;
-            coordinateY = -screen.height;
-            velocityX = 0;
-            velocityY = 0;
-            gravity = 0;
-        }
-        context.save();
-        context.translate(coordinateX, coordinateY);
-        //Transforming the angle in rad
-        context.rotate(angle * (Math.PI / 180));
-        context.drawImage(image, 10, 4, 47, 110, width/-2, (height-40)/-2, width, height);
-        context.restore();
+    this.draw = function(context) {
+        context.drawImage(image, coordinateX, coordinateY, width, height);
     };
     
-    this.move = function() {
-        velocityY += gravity;
-        coordinateX += velocityX;
-        coordinateY += velocityY;
+    this.move = function(screen) {
+        if(coordinateX - width <= screen.width && coordinateX >= 0 - width) {
+            coordinateX += velocityX;
+        } else {
+            velocityX = -velocityX;
+        }
     };
     
     this.getWidth = function(){
@@ -87,28 +74,12 @@ function Bomb() {
         velocityX = vX;
     };
     
-    this.getVelocityY = function() {
-        return velocityY;
+    this.setShotAngle = function(a){
+        shotAngle = a;
     };
     
-    this.setVelocityY = function(vY) {
-        velocityY = vY;
-    };
-    
-    this.setAngle = function(a){
-        angle = a;
-    };
-    
-    this.getAngle = function(){
-        return angle;
-    };
-    
-    this.getGravity = function() {
-        return gravity;
-    };
-    
-    this.setGravity = function(g) {
-        gravity = g;
+    this.getShotAngle = function(){
+        return shotAngle;
     };
     
     this.setImage = function(i) {

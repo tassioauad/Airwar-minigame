@@ -29,6 +29,7 @@ function Player() {
     var bombsFired = 0;
 
     this.draw = function(context, screen) {
+        //TODO: Move these tests to move()
         if(coordinateX - width > screen.width) {
             coordinateX = screen.width - coordinateX;
         }  else if(coordinateX < 0 - width) {
