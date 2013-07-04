@@ -29,6 +29,7 @@ player.getImage().src = playerImagePath;
 //Bomb
 var bombs = [];
 var bombsFired = 0;
+var bombAmount = 10;
 
 //Bomb
 var warships = [];
@@ -42,7 +43,7 @@ function keyUp(e) {
         player.decreaseAngle(false);
     } else if (e.keyCode === 40) {
         player.increaseAngle(false);
-    } else if (e.keyCode === 32) {
+    } else if (e.keyCode === 32 && bombAmount > 0) {
         playerFire();
     }
 }
@@ -82,6 +83,17 @@ function playerFire() {
     bombs[bombsFired].setAngle(player.getAngle());
     bombs[bombsFired].getImage().src = bombImagePath;
     bombsFired++;
+    bombAmount--;
+}
+
+function drawStatus() {
+    var image = new Image();
+    image.src = bombImagePath;
+    context.drawImage(image, 10, 4, 47, 110, 0, 0, 30, 70);
+    context.fillStyle = "green";
+    context.lineWidth = 1;
+    context.font = '25px "Arial Black", sans-serif';
+    context.fillText(bombAmount, 35, 60);
 }
 
 //Clear the draws
@@ -122,7 +134,8 @@ function gameLifeCicle() {
             warships[i].setVelocityX((Math.random() * 2) - 1);
         }
     }
-
+    
+    drawStatus();
 }
 window.setInterval(gameLifeCicle, 5);
 
