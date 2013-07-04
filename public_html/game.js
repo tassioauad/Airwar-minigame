@@ -1,17 +1,17 @@
 /*-
-This is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This software is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this software.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ This is free software: you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation, either version 3 of the License, or
+ (at your option) any later version.
+ 
+ This software is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License
+ along with this software.  If not, see <http://www.gnu.org/licenses/>.
+ */
 
 var screen = document.getElementById("screen");
 var context = screen.getContext("2d");
@@ -58,18 +58,19 @@ function createWarship() {
     warships[warshipsAmount] = new Warship();
     warships[warshipsAmount].getImage().src = warshipImagePath;
     warships[warshipsAmount].setCoordinateY(screen.height - warships[warshipsAmount].getHeight());
-    
+
     //if whichSide = 0, the warship will be created on the right side, if = 1, on the left side.
-    var whichSide = Math.floor((Math.random()*2));
-    if(whichSide === 0) {
-        warships[warshipsAmount].setCoordinateX(screen.width + warships[warshipsAmount].getWidth());
+    var whichSide = Math.floor((Math.random() * 2));
+    if (whichSide === 0) {
+        warships[warshipsAmount].setCoordinateX(screen.width - warships[warshipsAmount].getWidth());
         warships[warshipsAmount].setVelocityX(-Math.random());
     } else {
-        warships[warshipsAmount].setCoordinateX(0 - warships[warshipsAmount].getWidth());
+        warships[warshipsAmount].setCoordinateX(0);
         warships[warshipsAmount].setVelocityX(Math.random());
     }
     warshipsAmount++;
 }
+createWarship();
 
 //Player is firing a bomb
 function playerFire() {
@@ -97,23 +98,29 @@ function gameLifeCicle() {
     //Drawing and moving the player
     player.move();
     player.draw(context, screen);
-    
+
     //Drawing and moving the bombs
     for (i = 0; i < bombsFired; i++) {
         bombs[i].move();
         bombs[i].draw(context, screen);
     }
-    
+
     //Creating warships
-    var createOrNot = Math.floor((Math.random()*10000))
-    if(createOrNot === 0) {
+    var createOrNot = Math.floor((Math.random() * 5000))
+    if (createOrNot === 0) {
         createWarship();
     }
-    
+
     //Drawing and moving the warships
     for (i = 0; i < warshipsAmount; i++) {
         warships[i].move(screen);
         warships[i].draw(context);
+
+        //Deciding if the game have to change the velocity of the warship
+        var changeVelocity = Math.floor((Math.random() * 1000));
+        if (changeVelocity === 0) {
+            warships[i].setVelocityX((Math.random() * 2) - 1);
+        }
     }
 
 }

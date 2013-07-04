@@ -15,8 +15,9 @@ along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 function Bomb() {
     var image = new Image();
-    var width = 15;
-    var height = 35;
+    //15x35
+    var width = 7;
+    var height = 16;
     var coordinateX = 0;
     var coordinateY = 0;
     var velocityX = 0;

@@ -15,12 +15,13 @@ along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 function Player() {
     var image = new Image();
-    var width = 100;
-    var height = 57;
+    //100x57
+    var width = 60;
+    var height = 34;
     var coordinateX = 200;
     var coordinateY = 200;
     var angle = 0;
-    var velocity = 0.7;
+    var velocity = 1;
     var velocityX = 0;
     var velocityY = 0;
     var increaseAngle = false;

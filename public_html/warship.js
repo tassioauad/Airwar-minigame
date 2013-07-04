@@ -15,8 +15,9 @@ along with this software.  If not, see <http://www.gnu.org/licenses/>.
 
 function Warship() {
     var image = new Image();
-    var width = 236;
-    var height = 94;
+    //236x94
+    var width = 150;
+    var height = 60;
     var coordinateX = 0;
     var coordinateY = 0;
     var velocityX = 0;
@@ -27,10 +28,8 @@ function Warship() {
     };
     
     this.move = function(screen) {
-        if(coordinateX - width <= screen.width && coordinateX >= 0 - width) {
+        if(coordinateX <= screen.width - width && coordinateX >= 0) {
             coordinateX += velocityX;
-        } else {
-            velocityX = -velocityX;
         }
     };
     
