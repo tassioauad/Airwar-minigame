@@ -29,11 +29,18 @@ player.getImage().src = playerImagePath;
 //Bomb
 var bombs = [];
 var bombsFired = 0;
-var bombAmount = 10;
 
 //Bomb
 var warships = [];
 var warshipsAmount = 0;
+
+//Status variables
+var damages = 0;
+var bombAmount = 10;
+var health = 100;
+var bombStatusImagePath = "images/torpedo.png";
+var healthStatusImagePath = "images/health.png";
+var damageStatusImagePath = "images/damage.png";
 
 //Key actions
 window.addEventListener("keydown", keyDown);
@@ -87,13 +94,32 @@ function playerFire() {
 }
 
 function drawStatus() {
-    var image = new Image();
-    image.src = bombImagePath;
-    context.drawImage(image, 10, 4, 47, 110, 0, 0, 30, 70);
-    context.fillStyle = "green";
+    //Health status
+    var healthImage = new Image();
+    healthImage.src = healthStatusImagePath;
+    context.drawImage(healthImage, 0, 0, 50, 50);
+    context.fillStyle = "black";
     context.lineWidth = 1;
     context.font = '25px "Arial Black", sans-serif';
-    context.fillText(bombAmount, 35, 60);
+    context.fillText(health, 55, 40);
+
+    //Bombs status
+    var bombImage = new Image();
+    bombImage.src = bombStatusImagePath;
+    context.drawImage(bombImage, 110, 0, 50, 50);
+    context.fillStyle = "black";
+    context.lineWidth = 1;
+    context.font = '25px "Arial Black", sans-serif';
+    context.fillText(bombAmount, 165, 40);
+
+    //Bombs status
+    var damageImage = new Image();
+    damageImage.src = damageStatusImagePath;
+    context.drawImage(damageImage, 220, 0, 50, 50);
+    context.fillStyle = "black";
+    context.lineWidth = 1;
+    context.font = '25px "Arial Black", sans-serif';
+    context.fillText(damages, 275, 40);
 }
 
 //Clear the draws
@@ -106,7 +132,7 @@ function clearScreen() {
 //The game's life cicle
 function gameLifeCicle() {
     clearScreen();
-
+    drawStatus();
     //Drawing and moving the player
     player.move();
     player.draw(context, screen);
@@ -134,8 +160,6 @@ function gameLifeCicle() {
             warships[i].setVelocityX((Math.random() * 2) - 1);
         }
     }
-    
-    drawStatus();
 }
 window.setInterval(gameLifeCicle, 5);
 
