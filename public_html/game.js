@@ -122,6 +122,21 @@ function drawStatus() {
     context.fillText(damages, 275, 40);
 }
 
+function hasColided(object1, object2) {
+    var object1Left = object1.getCoordinateX();
+    var object1Bottom = object1.getCoordinateY() + object1.getHeight();
+
+    var object2Left = object2.getCoordinateX();
+    var object2Right = object2.getCoordinateX() + object2.getWidth();
+    var object2Top = object2.getCoordinateY();
+    
+    if (object1Left >= object2Left && object1Left <= object2Right && object1Bottom >= object2Top) {
+        return true;
+    }
+
+    return false;
+}
+
 //Clear the draws
 function clearScreen() {
     var backgroundImage = new Image();
@@ -136,12 +151,6 @@ function gameLifeCicle() {
     //Drawing and moving the player
     player.move();
     player.draw(context, screen);
-
-    //Drawing and moving the bombs
-    for (i = 0; i < bombsFired; i++) {
-        bombs[i].move();
-        bombs[i].draw(context, screen);
-    }
 
     //Creating warships
     var createOrNot = Math.floor((Math.random() * 5000))
@@ -158,6 +167,30 @@ function gameLifeCicle() {
         var changeVelocity = Math.floor((Math.random() * 1000));
         if (changeVelocity === 0) {
             warships[i].setVelocityX((Math.random() * 2) - 1);
+        }
+    }
+
+    //Drawing and moving the bombs
+    for (i = 0; i < bombsFired; i++) {
+        bombs[i].move();
+        bombs[i].draw(context, screen);
+
+        //Testing colision
+        for (j = 0; j < warshipsAmount; j++) {
+            if (hasColided(bombs[i], warships[j])) {
+                //Moving bomb to outside of screen
+                bombs[i].setCoordinateX(-screen.width);
+                bombs[i].setCoordinateY(-screen.height);
+                bombs[i].setVelocityX(0);
+                bombs[i].setVelocityY(0);
+                bombs[i].setGravity(0);
+                //Moving warship to outside of screen
+                warships[j].setCoordinateX(-screen.width - 1000);
+                warships[j].setCoordinateY(-screen.height - 1000);
+                warships[j].setVelocityX(0);
+                //Increase damage points
+                damages++;
+            }
         }
     }
 }
