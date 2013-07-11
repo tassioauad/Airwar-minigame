@@ -21,18 +21,23 @@ var playerImagePath = "images/plane5.png";
 var bombImagePath = "images/bomb2.png";
 var warshipImagePath = "images/ship5.png";
 var backgroundImagePath = "images/sky01.png";
+var explosionImagePath = "images/bombexplosion.png";
 
 //Player
 var player = new Player();
 player.getImage().src = playerImagePath;
 
-//Bomb
+//Bombs
 var bombs = [];
 var bombsFired = 0;
 
-//Bomb
+//Warships
 var warships = [];
 var warshipsAmount = 0;
+
+//Explosions
+var explosions = [];
+var explosionsAmount = 0;
 
 //Status variables
 var damages = 0;
@@ -129,7 +134,7 @@ function hasColided(object1, object2) {
     var object2Left = object2.getCoordinateX();
     var object2Right = object2.getCoordinateX() + object2.getWidth();
     var object2Top = object2.getCoordinateY();
-    
+
     if (object1Left >= object2Left && object1Left <= object2Right && object1Bottom >= object2Top) {
         return true;
     }
@@ -184,6 +189,16 @@ function gameLifeCicle() {
                 bombs[i].setVelocityX(0);
                 bombs[i].setVelocityY(0);
                 bombs[i].setGravity(0);
+
+                //Creating an explosion
+                explosions[explosionsAmount] = new Explosion(
+                        warships[j].getCoordinateX(),
+                        warships[j].getCoordinateY()
+                        );
+                explosions[explosionsAmount].getImage().src = explosionImagePath;
+                explosions[explosionsAmount].setFrameAmount(8);
+                explosionsAmount++;
+                
                 //Moving warship to outside of screen
                 warships[j].setCoordinateX(-screen.width - 1000);
                 warships[j].setCoordinateY(-screen.height - 1000);
@@ -191,6 +206,11 @@ function gameLifeCicle() {
                 //Increase damage points
                 damages++;
             }
+        }
+
+        //Drawing explosions
+        for (k = 0; k < explosionsAmount; k++) {
+            explosions[k].draw(context, screen);
         }
     }
 }
